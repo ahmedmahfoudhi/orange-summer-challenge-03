@@ -59,6 +59,36 @@ function Products() {
     </p>
   </div>
 </div>
+<div className="card manager-setWidth">
+  <img className="card-img-top" src="..." alt="Card image cap" />
+  <div className="card-body">
+    <h5 className="card-title">Card title</h5>
+    <p className="card-text">card description</p>
+    <p className='card-text'>card price</p>
+    <p className='card-text'>card stock quantity</p>
+    <p>
+    <button type="button" key={product.id} onClick={handleClickUpdate} className="btn btn-success set-margin-2" data-toggle="modal" data-target="#exampleModal">
+  Update
+</button>
+        <button className="btn btn-danger">Delete</button>
+    </p>
+  </div>
+</div>
+<div className="card manager-setWidth">
+  <img className="card-img-top" src="..." alt="Card image cap" />
+  <div className="card-body">
+    <h5 className="card-title">Card title</h5>
+    <p className="card-text">card description</p>
+    <p className='card-text'>card price</p>
+    <p className='card-text'>card stock quantity</p>
+    <p>
+    <button type="button" key={product.id} onClick={handleClickUpdate} className="btn btn-success set-margin-2" data-toggle="modal" data-target="#exampleModal">
+  Update
+</button>
+        <button className="btn btn-danger">Delete</button>
+    </p>
+  </div>
+</div>
 <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
     <div className="modal-content">

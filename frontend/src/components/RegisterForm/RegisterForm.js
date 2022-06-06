@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
-import { register } from '../../redux/auth/authSlice';
+import { register,reset } from '../../redux/auth/authSlice';
 import './RegisterForm.css'
 function RegisterForm() {
 
@@ -26,11 +26,11 @@ function RegisterForm() {
           if(isSuccess){
               toast.success(`Hello ${user.name}`)
           }
-          //dispatch(reset())
+          dispatch(reset())
           navigate('/')
       }
-      //dispatch(reset)
-  })
+      dispatch(reset)
+  },[isError,isSuccess,user,message,navigate,dispatch])
 
 
   const handleChange = (e) => {
@@ -54,7 +54,7 @@ function RegisterForm() {
 
   }
 
-  return (
+  const JSXContent = (
     <div className="login-form-container">
     <form onSubmit={registerUser}>
 
@@ -85,6 +85,12 @@ function RegisterForm() {
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>
+  )
+
+  const result = user ? null : JSXContent
+
+  return (
+    result
   )
 }
 

@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify'
-import { login } from '../../redux/auth/authSlice';
+import { login, reset } from '../../redux/auth/authSlice';
 import './LoginForm.css'
 function LoginForm() {
 
@@ -18,13 +18,11 @@ function LoginForm() {
     if(isError){
       toast.error(message)
     }
-    if(user || isSuccess){
-      if(isSuccess){
-        toast.success(`Hello ${user.name}`)
-      }
+    if(user || isSuccess){ 
       navigate('/')
     }
-  })
+    dispatch(reset())
+  },[isError,isSuccess,user,message,navigate,dispatch])
 
 
   const handleChange = (e) => {
@@ -45,7 +43,6 @@ function LoginForm() {
       return;
     }
     dispatch(login(formData));
-
   }
 
   return (

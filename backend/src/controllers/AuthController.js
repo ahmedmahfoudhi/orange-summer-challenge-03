@@ -94,29 +94,35 @@ const updateUser = asyncHandler(async (req,res) => {
         res.status(400).json({
             message: `user with id ${id} does not exist`
         })
-    }
-    
-    // set new user data
-    user.name = name ? name : user.name;
-    user.email = email ? email : user.email;
-    user.password = password ? hashPassword(password) : user.password;
-    user.name = name ? name : user.name;
-    user.isAdmin = isAdmin ? isAdmin : user.isAdmin;
-    user.address = address ? address : user.address;
-    const updatedUser = await user.save();
-    if(updatedUser){
-        res.status(200).json({
-            _id: updatedUser.id,
-            name: updatedUser.name,
-            email: updatedUser.email,
-            address: updatedUser.address,
-            isAdmin: updatedUser.isAdmin,
-        })
-
     }else{
-        res.status(400).json({
-            message : 'Please check data and try again!'
-        })
+      
+      // set new user data
+      user.name = name ? name : user.name;
+      user.email = email ? email : user.email;
+      user.password = password ? await hashPassword(password) : user.password;
+      user.name = name ? name : user.name;
+      user.isAdmin = isAdmin ? isAdmin : user.isAdmin;
+      user.address = address ? address : user.address;
+  
+      //update user 
+      const updatedUser = (await user.save())._doc;
+  
+      //checks if the user was updated
+      if(updatedUser){
+          res.status(200).json({
+              _id: id,
+              name: user.name,
+              email: updatedUser.email,
+              address: updatedUser.address,
+              isAdmin: updatedUser.isAdmin,
+          })
+  
+      }else{
+          res.status(400).json({
+              message : 'Please check data and try again!'
+          })
+      }
+
     }
 })
 
@@ -124,29 +130,37 @@ const updateUser = asyncHandler(async (req,res) => {
 // DELETE /api/user/:id
 const deleteUser = asyncHandler( async (req,res) => {
     const id = req.params.id;
-    const user = await User.find({id})
+    const user = await User.findOne({id})
+    
     if(!user){
         res.status(400).json({
             message: `user with id ${id} does not exist`
         })
     }
 
-    if(user.isAdmin){
-        res.status(400).json({
-            message: 'Cannot delete an admin',
-        })
+    else{
+
+      if(user.isAdmin === true){
+          res.status(400).json({
+              message: 'Cannot delete an admin'
+          })
+          return;
+      }else{
+        
+        const result = await User.deleteOne({id})
+        if(result){
+            res.status(200).json({
+                message: `user with id ${id} has been deleted`
+            })
+        }else{
+            res.status(400).json({
+                message: 'Something went wrong try again!',
+            })
+        }
+      }
     }
 
-    const result = await User.deleteOne({id})
-    if(result){
-        res.status(200).json({
-            message: `user with id ${id} has been deleted`
-        })
-    }else{
-        res.status(400).json({
-            message: 'Something went wrong try again!',
-        })
-    }
+
 
 
 })
@@ -171,7 +185,7 @@ const generateToken = (id) => {
 
 const hashPassword = asyncHandler(async (password) => {
     const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(password, salt)
+    const hashedPassword =await bcrypt.hash(password, salt)
     return hashedPassword
 })
 

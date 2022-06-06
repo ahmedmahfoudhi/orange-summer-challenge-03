@@ -7,6 +7,8 @@ import LoginForm from './components/LoginUser/LoginForm';
 import RegisterForm from './components/RegisterForm/RegisterForm';
 import Managers from './components/Managers/Managers';
 import Products from './components/Products/Products';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
   </Routes> 
       </div>
     </div>
+    <ToastContainer />
     </BrowserRouter>
   );
 }

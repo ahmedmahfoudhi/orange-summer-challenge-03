@@ -1,6 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { logout, reset } from '../../redux/auth/authSlice'
 import './SideBar.css'
 
 function SideBar() {
@@ -13,13 +14,22 @@ function SideBar() {
     </ul>
   )
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch(logout())
+    dispatch(reset())
+    navigate('/')
+  }
+
   const adminSidebar = (
     <ul>
       <li><Link to="manager">Managers</Link></li>
       <li><Link to="addmanager">Add Manager</Link></li>
       <li><Link to="products">Products</Link></li>
       <li><Link to="addproduct">Add Product</Link></li>
-      <li><Link to="logout">Logout</Link></li>
+      <li><Link to="logout" onClick={handleLogout}>Logout</Link></li>
     </ul>
   )
 
@@ -27,7 +37,7 @@ function SideBar() {
     <ul>
       <li><Link to="login">Products</Link></li>
       <li><Link to="login">Add Product</Link></li>
-      <li><Link to="login">Logout</Link></li>
+      <li><Link to="" onClick={handleLogout}>Logout</Link></li>
     </ul>
   )
 

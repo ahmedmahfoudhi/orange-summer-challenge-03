@@ -12,5 +12,8 @@ router.patch('/:id',checkLoggedIn,checkAdmin,updateUser)
 router.delete('/:id',checkLoggedIn,checkAdmin,deleteUser)
 
 
+
+
+
 module.exports = router
 

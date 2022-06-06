@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import './Header.css'
 function Header() {
   const user = useSelector(state => state.auth.user)
+  
   return (
     <div className="header">
         <h1>Orange Summer Camp Test</h1>

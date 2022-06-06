@@ -11,6 +11,7 @@ dotenv.config();
 const app = express()
 
 const authRouter = require('./src/routes/auth')
+const productRouter = require('./src/routes/product')
 
 
 app.use(cors())
@@ -32,6 +33,7 @@ const connectDB = async () => {
 connectDB();
 
 app.use('/api/user',authRouter)
+app.use('/api/product',productRouter);
 
 app.listen(process.env.PORT,() => {
     console.log(`server is listening on port ${process.env.PORT}`)
