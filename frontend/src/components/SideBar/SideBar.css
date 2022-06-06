@@ -1,0 +1,28 @@
+.sidebar{
+    width: 25%;
+    background-color: #f6f6f6;
+    height: calc(100vh - 63px);
+}
+
+.sidebar ul{
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar a{
+    display: block;
+    color: #333;
+    padding: 7px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.sidebar li:hover, .sidebar li.active{
+    background-color: #333;
+    color: #fefefe;
+}
+
+.sidebar li:hover a, .sidebar a.active{
+    color: #fff;
+}

@@ -1,0 +1,17 @@
+.managers-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+}
+.manager-setWidth{
+    width: 30%;
+    height: 200px;
+    border: 1px solid brown;
+    margin-bottom: 10px;
+}
+
+
+.set-margin-2{
+    margin-right: 2px;
+}
